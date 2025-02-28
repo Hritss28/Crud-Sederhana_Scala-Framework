@@ -1,0 +1,208 @@
+@(id: Long, teamForm: Form[models.Team])(implicit messages: MessagesProvider, request: RequestHeader)
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tim | Sistem Manajemen Tim Sepak Bola</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            background-color: #1a237e;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+        }
+        
+        .nav-link {
+            color: white !important;
+            margin-right: 15px;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 40px 0;
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            background-color: #1a237e;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .btn-primary {
+            background-color: #1a237e;
+            border-color: #1a237e;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0d1757;
+            border-color: #0d1757;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        
+        .form-label {
+            font-weight: 500;
+        }
+        
+        footer {
+            background-color: #1a237e;
+            color: white;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+        
+        .social-links a {
+            color: white;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="@routes.TeamController.index">
+                <i class="fas fa-futbol me-2"></i>Crud Sederhana Football Club
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0">Edit Tim</h4>
+                        </div>
+                        <div class="card-body">
+                            @helper.form(action = routes.TeamController.update(id), Symbol("enctype") -> "multipart/form-data", Symbol("class") -> "needs-validation", Symbol("novalidate") -> "novalidate") {
+                                @helper.CSRF.formField
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">ID Tim</label>
+                                    <input type="text" class="form-control" name="@teamForm("id").name" 
+                                           value="@teamForm("id").value" placeholder="ID Tim" readonly>
+                                    <small class="form-text text-muted">ID tidak dapat diubah</small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Nama Tim</label>
+                                    <input type="text" class="form-control" name="@teamForm("namaTim").name" 
+                                           value="@teamForm("namaTim").value" placeholder="Masukkan nama tim" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Negara</label>
+                                    <input type="text" class="form-control" name="@teamForm("negara").name" 
+                                           value="@teamForm("negara").value" placeholder="Masukkan negara asal" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Liga</label>
+                                    <input type="text" class="form-control" name="@teamForm("liga").name" 
+                                           value="@teamForm("liga").value" placeholder="Masukkan liga" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Stadion</label>
+                                    <input type="text" class="form-control" name="@teamForm("stadion").name" 
+                                           value="@teamForm("stadion").value" placeholder="Masukkan nama stadion" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">URL Logo</label>
+                                    <input type="url" class="form-control" name="@teamForm("logo").name" 
+                                           value="@teamForm("logo").value" placeholder="Masukkan URL logo tim" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">URL Gambar Stadion</label>
+                                    <input type="url" class="form-control" name="@teamForm("gambarStadion").name" 
+                                           value="@teamForm("gambarStadion").value" placeholder="Masukkan URL gambar stadion" required>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between">
+                                    <a href="@routes.TeamController.index" class="btn btn-secondary">
+                                        <i class="fas fa-arrow-left me-1"></i> Kembali
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-1"></i> Update
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Crud Sederhana Football Club</h5>
+                    <p class="text-light">Kelola data tim sepak bola dengan mudah dan efisien.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Anggota Kami</h5>
+                    <div class="social-links">
+                        <ul>
+                            <li><a href="#" class="text-light">Achmad Lutfi Madhani (23-059)</a></li>
+                            <li><a href="#" class="text-light">Harits Putra Junaidi (23-003)</a></li>
+                            <li><a href="#" class="text-light">Wahyu Pratama (23-058)</a></li>
+                            <li><a href="#" class="text-light">Adib Wildan Riyadi (23-179)</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Ikuti Kami</h5>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2 bg-light">
+            <div class="text-center text-light">
+                <small>&copy; 2025 Kelompok 4. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

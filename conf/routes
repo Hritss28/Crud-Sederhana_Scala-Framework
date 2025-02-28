@@ -1,0 +1,14 @@
+# HTML Routes
+GET     /                         controllers.TeamController.index
+GET     /teams/create             controllers.TeamController.createForm
+POST    /teams/save               controllers.TeamController.save
+GET     /teams/edit/$id<[^/]+>    controllers.TeamController.editForm(id: Long)
+POST    /teams/update/$id<[^/]+>  controllers.TeamController.update(id: Long)
+POST    /teams/delete/$id<[^/]+>  controllers.TeamController.delete(id: Long)
+
+# Routes untuk API JSON (REST)
+GET     /api/teams                controllers.TeamController.getAllTeams
+GET     /api/teams/$id<[^/]+>     controllers.TeamController.getTeam(id: Long)
+POST    /api/teams                controllers.TeamController.addTeam
+PUT     /api/teams/$id<[^/]+>     controllers.TeamController.updateTeam(id: Long)
+DELETE  /api/teams/$id<[^/]+>     controllers.TeamController.deleteTeam(id: Long)
